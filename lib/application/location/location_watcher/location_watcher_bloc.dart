@@ -24,8 +24,6 @@ class LocationWatcherBloc
     try {
       final locations = await _locationService.getAllLocations();
 
-      print(locations);
-
       // when the locations data is empty just return empty state rather than location state with empty data
       if (locations.isEmpty) {
         emit(const LocationWatcherState.empty());

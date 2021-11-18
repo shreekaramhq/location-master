@@ -25,19 +25,6 @@ class LocationRepository implements ILocationRepository {
   Future<void> addLocation(LocationModel location) async {
     final dto = LocationModelDto.fromDomain(location);
 
-    // final result =
-    //     await _sqlDatabase.instance.rawInsert(insertLocationQuery, [
-    //   dto.id,
-    //   dto.name,
-    //   dto.latitude,
-    //   dto.longitude,
-    //   dto.createdAt,
-    //   dto.updatedAt,
-    //   dto.description ?? ""
-    // ]);
-
-    print(dto.toMap());
-
     await _sqlDatabase.instance.insert("locations", dto.toMap());
   }
 
