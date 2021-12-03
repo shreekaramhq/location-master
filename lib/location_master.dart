@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:locationmaster/config/router.dart';
+
 class LocationMaster extends StatelessWidget {
   const LocationMaster({Key? key}) : super(key: key);
 
@@ -11,11 +13,9 @@ class LocationMaster extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Scaffold(
-        body: Center(
-          child: Text("Location Master"),
-        ),
-      ),
+      navigatorObservers: [Routes.rootRouteObserver],
+      initialRoute: Routes.root,
+      onGenerateRoute: LocationMasterRouter().onGenerateRoute,
     );
   }
 }

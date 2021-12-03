@@ -1,7 +1,7 @@
 import 'package:locationmaster/domain/location/location_model.dart';
 
 abstract class ILocationRepository {
-  Future<List<LocationModel>> getAllLocations();
+  Future<List<LocationModel>> getLocation(String groupId);
 
   Future<void> deleteLocation(String locationId);
 

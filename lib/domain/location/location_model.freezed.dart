@@ -26,14 +26,16 @@ class _$LocationModelTearOff {
       required String name,
       required String latitude,
       required String longitude,
-      required DateTime createdAt,
-      required DateTime updatedAt,
+      required String groupId,
+      DateTime? createdAt,
+      DateTime? updatedAt,
       String? description}) {
     return _LocationModel(
       id: id,
       name: name,
       latitude: latitude,
       longitude: longitude,
+      groupId: groupId,
       createdAt: createdAt,
       updatedAt: updatedAt,
       description: description,
@@ -54,8 +56,9 @@ mixin _$LocationModel {
   String get name => throw _privateConstructorUsedError;
   String get latitude => throw _privateConstructorUsedError;
   String get longitude => throw _privateConstructorUsedError;
-  DateTime get createdAt => throw _privateConstructorUsedError;
-  DateTime get updatedAt => throw _privateConstructorUsedError;
+  String get groupId => throw _privateConstructorUsedError;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -74,8 +77,9 @@ abstract class $LocationModelCopyWith<$Res> {
       String name,
       String latitude,
       String longitude,
-      DateTime createdAt,
-      DateTime updatedAt,
+      String groupId,
+      DateTime? createdAt,
+      DateTime? updatedAt,
       String? description});
 }
 
@@ -94,6 +98,7 @@ class _$LocationModelCopyWithImpl<$Res>
     Object? name = freezed,
     Object? latitude = freezed,
     Object? longitude = freezed,
+    Object? groupId = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? description = freezed,
@@ -115,14 +120,18 @@ class _$LocationModelCopyWithImpl<$Res>
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as String,
+      groupId: groupId == freezed
+          ? _value.groupId
+          : groupId // ignore: cast_nullable_to_non_nullable
+              as String,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       updatedAt: updatedAt == freezed
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -143,8 +152,9 @@ abstract class _$LocationModelCopyWith<$Res>
       String name,
       String latitude,
       String longitude,
-      DateTime createdAt,
-      DateTime updatedAt,
+      String groupId,
+      DateTime? createdAt,
+      DateTime? updatedAt,
       String? description});
 }
 
@@ -165,6 +175,7 @@ class __$LocationModelCopyWithImpl<$Res>
     Object? name = freezed,
     Object? latitude = freezed,
     Object? longitude = freezed,
+    Object? groupId = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? description = freezed,
@@ -186,14 +197,18 @@ class __$LocationModelCopyWithImpl<$Res>
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as String,
+      groupId: groupId == freezed
+          ? _value.groupId
+          : groupId // ignore: cast_nullable_to_non_nullable
+              as String,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       updatedAt: updatedAt == freezed
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -210,8 +225,9 @@ class _$_LocationModel implements _LocationModel {
       required this.name,
       required this.latitude,
       required this.longitude,
-      required this.createdAt,
-      required this.updatedAt,
+      required this.groupId,
+      this.createdAt,
+      this.updatedAt,
       this.description});
 
   factory _$_LocationModel.fromJson(Map<String, dynamic> json) =>
@@ -226,15 +242,17 @@ class _$_LocationModel implements _LocationModel {
   @override
   final String longitude;
   @override
-  final DateTime createdAt;
+  final String groupId;
   @override
-  final DateTime updatedAt;
+  final DateTime? createdAt;
+  @override
+  final DateTime? updatedAt;
   @override
   final String? description;
 
   @override
   String toString() {
-    return 'LocationModel(id: $id, name: $name, latitude: $latitude, longitude: $longitude, createdAt: $createdAt, updatedAt: $updatedAt, description: $description)';
+    return 'LocationModel(id: $id, name: $name, latitude: $latitude, longitude: $longitude, groupId: $groupId, createdAt: $createdAt, updatedAt: $updatedAt, description: $description)';
   }
 
   @override
@@ -248,6 +266,7 @@ class _$_LocationModel implements _LocationModel {
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
                 other.longitude == longitude) &&
+            (identical(other.groupId, groupId) || other.groupId == groupId) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -258,7 +277,7 @@ class _$_LocationModel implements _LocationModel {
 
   @override
   int get hashCode => Object.hash(runtimeType, id, name, latitude, longitude,
-      createdAt, updatedAt, description);
+      groupId, createdAt, updatedAt, description);
 
   @JsonKey(ignore: true)
   @override
@@ -277,8 +296,9 @@ abstract class _LocationModel implements LocationModel {
       required String name,
       required String latitude,
       required String longitude,
-      required DateTime createdAt,
-      required DateTime updatedAt,
+      required String groupId,
+      DateTime? createdAt,
+      DateTime? updatedAt,
       String? description}) = _$_LocationModel;
 
   factory _LocationModel.fromJson(Map<String, dynamic> json) =
@@ -293,9 +313,11 @@ abstract class _LocationModel implements LocationModel {
   @override
   String get longitude;
   @override
-  DateTime get createdAt;
+  String get groupId;
   @override
-  DateTime get updatedAt;
+  DateTime? get createdAt;
+  @override
+  DateTime? get updatedAt;
   @override
   String? get description;
   @override

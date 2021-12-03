@@ -7,3 +7,9 @@ INSERT INTO locations
 const selectLocationsQuery = '''SELECT * from locations''';
 
 const deleteLocationsQuery = '''DELETE FROM locations where id=?''';
+
+const selectGroupsQuery = '''SELECT * from groups''';
+
+const selectGroupByIdQuery = '''SELECT * from groups where id=?''';
+
+const selectLocationQuery = '''SELECT * from locations where groupId=?''';

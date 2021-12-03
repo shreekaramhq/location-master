@@ -12,8 +12,13 @@ _$_LocationModel _$$_LocationModelFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       latitude: json['latitude'] as String,
       longitude: json['longitude'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      updatedAt: DateTime.parse(json['updatedAt'] as String),
+      groupId: json['groupId'] as String,
+      createdAt: json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
+      updatedAt: json['updatedAt'] == null
+          ? null
+          : DateTime.parse(json['updatedAt'] as String),
       description: json['description'] as String?,
     );
 
@@ -23,7 +28,8 @@ Map<String, dynamic> _$$_LocationModelToJson(_$_LocationModel instance) =>
       'name': instance.name,
       'latitude': instance.latitude,
       'longitude': instance.longitude,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'updatedAt': instance.updatedAt.toIso8601String(),
+      'groupId': instance.groupId,
+      'createdAt': instance.createdAt?.toIso8601String(),
+      'updatedAt': instance.updatedAt?.toIso8601String(),
       'description': instance.description,
     };

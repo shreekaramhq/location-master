@@ -11,19 +11,19 @@ class LocationModel with _$LocationModel {
     required String name,
     required String latitude,
     required String longitude,
-    required DateTime createdAt,
-    required DateTime updatedAt,
+    required String groupId,
+    DateTime? createdAt,
+    DateTime? updatedAt,
     String? description,
   }) = _LocationModel;
 
   factory LocationModel.empty() {
     return LocationModel(
       id: const Uuid().v4(),
-      name: 'My Location',
+      name: '',
       latitude: '',
       longitude: '',
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
+      groupId: '',
     );
   }
 

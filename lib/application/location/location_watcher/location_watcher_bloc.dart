@@ -17,12 +17,12 @@ class LocationWatcherBloc
 
   LocationWatcherBloc(this._locationService)
       : super(const LocationWatcherState.initial()) {
-    on<_GetLocations>(_getLocations);
+    on<_GetLocation>(_getLocations);
   }
 
-  _getLocations(event, emit) async {
+  _getLocations(_GetLocation event, emit) async {
     try {
-      final locations = await _locationService.getAllLocations();
+      final locations = await _locationService.getLocation(event.groupId);
 
       // when the locations data is empty just return empty state rather than location state with empty data
       if (locations.isEmpty) {

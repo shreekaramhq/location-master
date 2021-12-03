@@ -6,6 +6,8 @@ import 'package:sqflite/sqflite.dart';
 
 const LOCATIONS_TABLE = "locations";
 
+const GROUPS_TABLE = "groups";
+
 @LazySingleton()
 class SqlDatabase {
   late Database instance;
@@ -19,7 +21,10 @@ class SqlDatabase {
       dbPath,
       version: version,
       onCreate: (Database db, int version) async {
-        await db.execute(createLocationsTable);
+        await db.transaction((txn) async {
+          await txn.execute(createGroupsTable);
+          await txn.execute(createLocationsTable);
+        });
       },
     );
   }

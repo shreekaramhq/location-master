@@ -8,8 +8,8 @@ class LocationService {
 
   LocationService(this._locationRepository);
 
-  Future<List<LocationModel>> getAllLocations() async {
-    return _locationRepository.getAllLocations();
+  Future<List<LocationModel>> getLocation(String groupId) async {
+    return _locationRepository.getLocation(groupId);
   }
 
   Future<void> addLocation(LocationModel locationModel) async {

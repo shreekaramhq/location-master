@@ -17,6 +17,12 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$LocationWatcherEventTearOff {
   const _$LocationWatcherEventTearOff();
 
+  _GetLocation getLocation(String groupId) {
+    return _GetLocation(
+      groupId,
+    );
+  }
+
   _GetLocations getLocations() {
     return const _GetLocations();
   }
@@ -29,32 +35,38 @@ const $LocationWatcherEvent = _$LocationWatcherEventTearOff();
 mixin _$LocationWatcherEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String groupId) getLocation,
     required TResult Function() getLocations,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String groupId)? getLocation,
     TResult Function()? getLocations,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String groupId)? getLocation,
     TResult Function()? getLocations,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetLocation value) getLocation,
     required TResult Function(_GetLocations value) getLocations,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_GetLocation value)? getLocation,
     TResult Function(_GetLocations value)? getLocations,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetLocation value)? getLocation,
     TResult Function(_GetLocations value)? getLocations,
     required TResult orElse(),
   }) =>
@@ -76,6 +88,139 @@ class _$LocationWatcherEventCopyWithImpl<$Res>
   final LocationWatcherEvent _value;
   // ignore: unused_field
   final $Res Function(LocationWatcherEvent) _then;
+}
+
+/// @nodoc
+abstract class _$GetLocationCopyWith<$Res> {
+  factory _$GetLocationCopyWith(
+          _GetLocation value, $Res Function(_GetLocation) then) =
+      __$GetLocationCopyWithImpl<$Res>;
+  $Res call({String groupId});
+}
+
+/// @nodoc
+class __$GetLocationCopyWithImpl<$Res>
+    extends _$LocationWatcherEventCopyWithImpl<$Res>
+    implements _$GetLocationCopyWith<$Res> {
+  __$GetLocationCopyWithImpl(
+      _GetLocation _value, $Res Function(_GetLocation) _then)
+      : super(_value, (v) => _then(v as _GetLocation));
+
+  @override
+  _GetLocation get _value => super._value as _GetLocation;
+
+  @override
+  $Res call({
+    Object? groupId = freezed,
+  }) {
+    return _then(_GetLocation(
+      groupId == freezed
+          ? _value.groupId
+          : groupId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_GetLocation implements _GetLocation {
+  const _$_GetLocation(this.groupId);
+
+  @override
+  final String groupId;
+
+  @override
+  String toString() {
+    return 'LocationWatcherEvent.getLocation(groupId: $groupId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _GetLocation &&
+            (identical(other.groupId, groupId) || other.groupId == groupId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, groupId);
+
+  @JsonKey(ignore: true)
+  @override
+  _$GetLocationCopyWith<_GetLocation> get copyWith =>
+      __$GetLocationCopyWithImpl<_GetLocation>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String groupId) getLocation,
+    required TResult Function() getLocations,
+  }) {
+    return getLocation(groupId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String groupId)? getLocation,
+    TResult Function()? getLocations,
+  }) {
+    return getLocation?.call(groupId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String groupId)? getLocation,
+    TResult Function()? getLocations,
+    required TResult orElse(),
+  }) {
+    if (getLocation != null) {
+      return getLocation(groupId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetLocation value) getLocation,
+    required TResult Function(_GetLocations value) getLocations,
+  }) {
+    return getLocation(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_GetLocation value)? getLocation,
+    TResult Function(_GetLocations value)? getLocations,
+  }) {
+    return getLocation?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetLocation value)? getLocation,
+    TResult Function(_GetLocations value)? getLocations,
+    required TResult orElse(),
+  }) {
+    if (getLocation != null) {
+      return getLocation(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetLocation implements LocationWatcherEvent {
+  const factory _GetLocation(String groupId) = _$_GetLocation;
+
+  String get groupId;
+  @JsonKey(ignore: true)
+  _$GetLocationCopyWith<_GetLocation> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -119,6 +264,7 @@ class _$_GetLocations implements _GetLocations {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String groupId) getLocation,
     required TResult Function() getLocations,
   }) {
     return getLocations();
@@ -127,6 +273,7 @@ class _$_GetLocations implements _GetLocations {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String groupId)? getLocation,
     TResult Function()? getLocations,
   }) {
     return getLocations?.call();
@@ -135,6 +282,7 @@ class _$_GetLocations implements _GetLocations {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String groupId)? getLocation,
     TResult Function()? getLocations,
     required TResult orElse(),
   }) {
@@ -147,6 +295,7 @@ class _$_GetLocations implements _GetLocations {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetLocation value) getLocation,
     required TResult Function(_GetLocations value) getLocations,
   }) {
     return getLocations(this);
@@ -155,6 +304,7 @@ class _$_GetLocations implements _GetLocations {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_GetLocation value)? getLocation,
     TResult Function(_GetLocations value)? getLocations,
   }) {
     return getLocations?.call(this);
@@ -163,6 +313,7 @@ class _$_GetLocations implements _GetLocations {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetLocation value)? getLocation,
     TResult Function(_GetLocations value)? getLocations,
     required TResult orElse(),
   }) {

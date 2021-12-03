@@ -13,15 +13,6 @@ class LocationRepository implements ILocationRepository {
   LocationRepository(this._sqlDatabase);
 
   @override
-  Future<List<LocationModel>> getAllLocations() async {
-    final result = await _sqlDatabase.instance.rawQuery(
-      selectLocationsQuery,
-    );
-
-    return result.map((e) => LocationModelDto.fromMap(e).toDomain()).toList();
-  }
-
-  @override
   Future<void> addLocation(LocationModel location) async {
     final dto = LocationModelDto.fromDomain(location);
 
@@ -35,5 +26,13 @@ class LocationRepository implements ILocationRepository {
       where: 'id = ?',
       whereArgs: [locationId],
     );
+  }
+
+  @override
+  Future<List<LocationModel>> getLocation(String groupId) async {
+    final result =
+        await _sqlDatabase.instance.rawQuery(selectLocationQuery, [groupId]);
+
+    return result.map((e) => LocationModelDto.fromMap(e).toDomain()).toList();
   }
 }
