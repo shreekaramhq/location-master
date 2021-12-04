@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:locationmaster/application/group/group_actor/group_actor_bloc.dart';
 
+import 'package:locationmaster/application/group/group_actor/group_actor_bloc.dart';
 import 'package:locationmaster/domain/group/group_model.dart';
 
 class GroupForm extends StatefulWidget {
@@ -30,9 +30,7 @@ class _GroupFormState extends State<GroupForm> {
           TextFormField(
             autofocus: true,
             initialValue: name,
-            decoration: const InputDecoration(
-              labelText: "Name",
-            ),
+            decoration: const InputDecoration(labelText: "Name"),
             validator: (text) {
               if (text == null || text.isEmpty) {
                 return 'Text is empty';
@@ -48,9 +46,7 @@ class _GroupFormState extends State<GroupForm> {
           TextFormField(
             initialValue: description,
             autofocus: true,
-            decoration: const InputDecoration(
-              labelText: "Description",
-            ),
+            decoration: const InputDecoration(labelText: "Description"),
             onChanged: (value) {
               setState(() {
                 description = value;
