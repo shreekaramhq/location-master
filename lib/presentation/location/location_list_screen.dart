@@ -198,7 +198,12 @@ class LocationListScreen extends StatelessWidget {
                             BorderRadius.vertical(top: Radius.circular(12.0)),
                       ),
                       builder: (ctx) {
-                        return LocationFormView(locationModel: _locationModel);
+                        return LocationFormView(
+                          locationModel: _locationModel,
+                          onSave: () {
+                            Navigator.of(context).pop();
+                          },
+                        );
                       },
                     );
                   } catch (e) {

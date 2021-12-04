@@ -6,7 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class LocationFormView extends StatefulWidget {
   final LocationModel locationModel;
 
-  const LocationFormView({Key? key, required this.locationModel})
+  final void Function() onSave;
+
+  const LocationFormView(
+      {Key? key, required this.locationModel, required this.onSave})
       : super(key: key);
 
   @override
@@ -93,7 +96,7 @@ class _LocationFormViewState extends State<LocationFormView> {
                                   ),
                                 );
 
-                            Navigator.pop(context);
+                            widget.onSave();
                           },
                   ),
                 ),
