@@ -68,7 +68,7 @@ class _GroupFormState extends State<GroupForm> {
                   Navigator.of(context).pop();
                 }
               },
-              child: const Text("Save Group"),
+              child: const Text("Create Group"),
             ),
           )
         ],

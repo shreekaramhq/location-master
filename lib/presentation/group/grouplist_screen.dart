@@ -37,6 +37,30 @@ class _GroupListScreenState extends State<GroupListScreen> {
   }
 
   Widget _onGroupsLoaded(List<GroupModel> groups) {
+    return GridView.builder(
+      padding: const EdgeInsets.all(8),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+      ),
+      itemBuilder: (ctx, index) {
+        final _group = groups[index];
+
+        return GroupTile(
+          group: _group,
+          onPressed: (GroupModel group) {
+            Navigator.pushNamed(context, Routes.locations,
+                arguments: LocationListArguments(group));
+          },
+          onLongPressd: (id) {
+            ctx.read<GroupActorBloc>().add(GroupActorEvent.deleteGroup(id));
+          },
+        );
+      },
+      itemCount: groups.length,
+    );
+
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
       itemCount: groups.length,
@@ -57,6 +81,21 @@ class _GroupListScreenState extends State<GroupListScreen> {
     );
   }
 
+  Widget _emptyGroup() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: const [
+        Icon(Icons.layers, size: 48),
+        Center(
+          child: Text(
+            "Start creating groups",
+            style: TextStyle(fontSize: 18),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,20 +103,7 @@ class _GroupListScreenState extends State<GroupListScreen> {
         builder: (context, state) {
           return state.maybeWhen(
             groupsLoaded: _onGroupsLoaded,
-            empty: () {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.hourglass_empty, size: 48),
-                  Center(
-                    child: Text(
-                      "Groups are empty",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                ],
-              );
-            },
+            empty: _emptyGroup,
             error: (s) {
               return const Center(
                 child: Text("Error getting lists"),
@@ -91,7 +117,7 @@ class _GroupListScreenState extends State<GroupListScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _onPressed,
-        child: const Icon(Icons.location_city),
+        child: const Icon(Icons.add),
       ),
     );
   }

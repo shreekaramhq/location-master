@@ -17,6 +17,66 @@ class GroupTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // return GestureDetector(
+    //   onTap: () => onPressed(group),
+    //   child: Card(
+    //     color: Colors.indigo.withOpacity(0.5),
+    //     child: Padding(
+    //       padding: const EdgeInsets.all(16.0),
+    //       child: Column(
+    //         crossAxisAlignment: CrossAxisAlignment.start,
+    //         children: [
+    //           Padding(
+    //             padding: const EdgeInsets.only(bottom: 8.0),
+    //             child: Text(
+    //               group.name,
+    //               style: const TextStyle(
+    //                 color: Colors.white,
+    //                 fontSize: 20,
+    //               ),
+    //             ),
+    //           ),
+    //           Text(
+    //             group.description ?? "",
+    //             style: const TextStyle(
+    //               color: Colors.white,
+    //               fontSize: 14,
+    //             ),
+    //           ),
+    //         ],
+    //       ),
+    //     ),
+    //   ),
+    // );
+
+    return Card(
+      color: Colors.indigo.withOpacity(0.5),
+
+      // margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+      child: ListTile(
+        contentPadding: const EdgeInsets.all(12),
+        dense: true,
+        // leading: Icon(Icons.album, size: 45),
+        title: Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: Text(
+            group.name,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+          ),
+        ),
+        subtitle: Text(
+          group.description ?? "",
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 14,
+          ),
+        ),
+        onTap: () => onPressed(group),
+      ),
+    );
     return ListTile(
       title: Text(group.name),
       subtitle: Text(group.description ?? ""),

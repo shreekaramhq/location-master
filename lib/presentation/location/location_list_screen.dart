@@ -20,7 +20,7 @@ class LocationListScreen extends StatelessWidget {
       context: ctx,
       builder: (context) {
         return SizedBox(
-          height: 180,
+          height: 120,
           child: ListView(
             children: [
               ListTile(
@@ -31,35 +31,41 @@ class LocationListScreen extends StatelessWidget {
                       "google.navigation:q=${locationModel.latitude}, ${locationModel.longitude}";
 
                   if (await canLaunch(mapurl)) {
+                    Navigator.of(context).pop();
+
                     await launch(mapurl);
                   } else {
                     // print("could not launch");
                   }
                 },
               ),
-              ListTile(
-                title: const Text("Edit"),
-                leading: const Icon(Icons.edit),
-                onTap: () {
-                  Navigator.of(context).pop();
+              // ListTile(
+              //   title: const Text("Edit"),
+              //   leading: const Icon(Icons.edit),
+              //   onTap: () {
+              //     Navigator.of(context).pop();
 
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(12.0)),
-                    ),
-                    builder: (ctx) {
-                      return LocationFormView(locationModel: locationModel);
-                    },
-                  );
-                },
-              ),
+              //     showModalBottomSheet(
+              //       context: context,
+              //       isScrollControlled: true,
+              //       shape: const RoundedRectangleBorder(
+              //         borderRadius:
+              //             BorderRadius.vertical(top: Radius.circular(12.0)),
+              //       ),
+              //       builder: (ctx) {
+              //         return LocationFormView(locationModel: locationModel);
+              //       },
+              //     );
+              //   },
+              // ),
               ListTile(
                 title: const Text("Delete"),
                 leading: const Icon(Icons.delete),
-                onTap: () => onDelete.call(locationModel.id, ctx),
+                onTap: () {
+                  onDelete(locationModel.id, ctx);
+
+                  Navigator.pop(context);
+                },
               ),
             ],
           ),
@@ -86,7 +92,7 @@ class LocationListScreen extends StatelessWidget {
               Icon(
                 Icons.location_on,
                 size: 100,
-                color: Colors.deepOrange,
+                color: Colors.indigo,
               ),
               SizedBox(
                 height: 12,
@@ -129,7 +135,11 @@ class LocationListScreen extends StatelessWidget {
         final location = data.locations[index];
 
         return ListTile(
-          title: Text(location.name),
+          title: Text(
+            location.name,
+            style: const TextStyle(fontSize: 18, color: Colors.blueGrey),
+          ),
+          subtitle: Text(location.description ?? ""),
           onTap: () => onPressed.call(location, ctx),
         );
       },
@@ -141,56 +151,65 @@ class LocationListScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<LocationWatcherBloc>()
         ..add(LocationWatcherEvent.getLocation(groupModel.id)),
-      child: BlocBuilder<LocationWatcherBloc, LocationWatcherState>(
-        builder: (context, state) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(groupModel.name),
-            ),
-            body: state.maybeMap(
-              empty: _emptyListView,
-              locations: _locationsListView,
-              error: _errorListView,
-              orElse: () => const Center(
-                child: SizedBox(
-                  child: CircularProgressIndicator(),
+      child: BlocListener<LocationActorBloc, LocationActorState>(
+        listener: (context, state) {
+          state.whenOrNull(initial: () {
+            context
+                .read<LocationWatcherBloc>()
+                .add(LocationWatcherEvent.getLocation(groupModel.id));
+          });
+        },
+        child: BlocBuilder<LocationWatcherBloc, LocationWatcherState>(
+          builder: (context, state) {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(groupModel.name),
+              ),
+              body: state.maybeMap(
+                empty: _emptyListView,
+                locations: _locationsListView,
+                error: _errorListView,
+                orElse: () => const Center(
+                  child: SizedBox(
+                    child: CircularProgressIndicator(),
+                  ),
                 ),
               ),
-            ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () async {
-                GpsService _service = getIt<GpsService>();
+              floatingActionButton: FloatingActionButton(
+                onPressed: () async {
+                  GpsService _service = getIt<GpsService>();
 
-                try {
-                  await _service.checkPermissions();
+                  try {
+                    await _service.checkPermissions();
 
-                  final _location = await getIt<GpsService>().getLocation();
+                    final _location = await getIt<GpsService>().getLocation();
 
-                  final _locationModel = LocationModel.empty().copyWith(
-                    latitude: _location.latitude.toString(),
-                    longitude: _location.longitude.toString(),
-                    groupId: groupModel.id,
-                  );
+                    final _locationModel = LocationModel.empty().copyWith(
+                      latitude: _location.latitude.toString(),
+                      longitude: _location.longitude.toString(),
+                      groupId: groupModel.id,
+                    );
 
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(12.0)),
-                    ),
-                    builder: (ctx) {
-                      return LocationFormView(locationModel: _locationModel);
-                    },
-                  );
-                } catch (e) {
-                  print(e);
-                }
-              },
-              child: const Icon(Icons.location_pin),
-            ),
-          );
-        },
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(12.0)),
+                      ),
+                      builder: (ctx) {
+                        return LocationFormView(locationModel: _locationModel);
+                      },
+                    );
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                child: const Icon(Icons.location_pin),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

@@ -32,13 +32,11 @@ class _LocationFormViewState extends State<LocationFormView> {
           children: [
             TextFormField(
               initialValue: widget.locationModel.name,
-              decoration: const InputDecoration(
-                labelText: "Name",
-              ),
+              decoration: const InputDecoration(labelText: "Name *"),
               autofocus: true,
               validator: (text) {
                 if (text == null || text.isEmpty) {
-                  return 'Text is empty';
+                  return 'Name is empty';
                 }
                 return null;
               },
@@ -48,16 +46,28 @@ class _LocationFormViewState extends State<LocationFormView> {
                 });
               },
             ),
+            TextFormField(
+              initialValue: widget.locationModel.description,
+              decoration: const InputDecoration(labelText: "Description"),
+              autofocus: true,
+              onChanged: (value) {
+                setState(() {
+                  description = value;
+                });
+              },
+            ),
             Row(
               children: [
                 Expanded(
                   child: TextFormField(
+                    enabled: false,
                     initialValue: widget.locationModel.latitude,
                     decoration: const InputDecoration(labelText: "Latitude"),
                   ),
                 ),
                 Expanded(
                   child: TextFormField(
+                    enabled: false,
                     initialValue: widget.locationModel.longitude,
                     decoration: const InputDecoration(labelText: "Longitude"),
                   ),
@@ -70,14 +80,21 @@ class _LocationFormViewState extends State<LocationFormView> {
                 Expanded(
                   flex: 0,
                   child: TextButton(
-                    child: const Text("Save"),
-                    onPressed: () {
-                      context.read<LocationActorBloc>().add(
-                            LocationActorEvent.saveLocation(
-                              widget.locationModel.copyWith(name: name),
-                            ),
-                          );
-                    },
+                    child: const Text("Save Location"),
+                    onPressed: name == ""
+                        ? null
+                        : () {
+                            context.read<LocationActorBloc>().add(
+                                  LocationActorEvent.saveLocation(
+                                    widget.locationModel.copyWith(
+                                      name: name,
+                                      description: description,
+                                    ),
+                                  ),
+                                );
+
+                            Navigator.pop(context);
+                          },
                   ),
                 ),
               ],

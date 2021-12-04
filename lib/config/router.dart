@@ -37,19 +37,38 @@ class LocationMasterRouter {
       pageBuilder: (context, animation, secondaryAnimation) =>
           _getRoute(context, settings),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(1.0, 0.0);
-        final end = Offset.zero;
-        final curve = Curves.ease;
+        // const begin = Offset(1.0, 0.0);
+        // final end = Offset.zero;
+        // final curve = Curves.ease;
 
-        final tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        // final tween =
+        //     Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
-        return SlideTransition(
-          position: animation.drive(tween),
+        return FadeTransition(
+          // position: animation.drive(tween),
+          opacity: animation,
           child: child,
         );
       },
     );
+
+    // return PageRouteBuilder(
+    //   pageBuilder: (context, animation, secondaryAnimation) =>
+    //       _getRoute(context, settings),
+    //   transitionsBuilder: (context, animation, secondaryAnimation, child) {
+    //     const begin = Offset(1.0, 0.0);
+    //     final end = Offset.zero;
+    //     final curve = Curves.ease;
+
+    //     final tween =
+    //         Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+    //     return SlideTransition(
+    //       position: animation.drive(tween),
+    //       child: child,
+    //     );
+    //   },
+    // );
   }
 
   Widget _getRoute(BuildContext context, RouteSettings settings) {
