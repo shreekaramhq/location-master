@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:locationmaster/modules/group/groups_list_page.dart';
+import 'package:locationmaster/providers.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return const HomePageView();
-  }
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class HomePageView extends StatelessWidget {
-  const HomePageView({Key? key}) : super(key: key);
+class _HomePageState extends ConsumerState<HomePage> {
+  int selectedIndex = 0;
+
+  @override
+  void initState() {
+    ref.read(groupwatcherProvider.notifier).getGroups();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,54 +26,41 @@ class HomePageView extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Location Master"),
       ),
-      body: listview(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _showModal(context);
+      body: IndexedStack(
+        index: selectedIndex,
+        children: [
+          const GroupsListPage(),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Center(
+                child: SizedBox(
+                  width: 250,
+                  child: SvgPicture.asset(
+                    'assets/trip.svg',
+                    semanticsLabel: 'Acme Logo',
+                    fit: BoxFit.scaleDown,
+                  ),
+                ),
+              ),
+              const Text("Plan your trips"),
+              const Text("coming soon"),
+            ],
+          )
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (int index) {
+          setState(() {
+            selectedIndex = index;
+          });
         },
-        child: const Icon(
-          Icons.list,
-          size: 30,
-        ),
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.inbox), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.train), label: "Trips"),
+        ],
+        currentIndex: selectedIndex,
       ),
-      resizeToAvoidBottomInset: false,
-    );
-  }
-
-  _showModal(BuildContext context) {}
-
-  ListView listview() {
-    return ListView.separated(
-      itemBuilder: (ctx, index) {
-        return ListTile(
-          onTap: () {},
-          // isThreeLine: true,
-          leading: Container(
-            height: 60,
-            width: 60,
-            padding: const EdgeInsets.all(12),
-            decoration: const BoxDecoration(
-              color: Colors.amberAccent,
-              borderRadius: BorderRadius.all(Radius.circular(30)),
-            ),
-            child: const Icon(
-              Icons.temple_buddhist,
-              size: 36,
-              color: Colors.black54,
-            ),
-          ),
-          title: const Text("Anekal"),
-          subtitle: const Text("Description"),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        );
-      },
-      separatorBuilder: (_, i) => const Divider(
-        height: 1,
-        color: Colors.grey,
-        indent: 16,
-        endIndent: 16,
-      ),
-      itemCount: 20,
     );
   }
 }

@@ -3,8 +3,7 @@ const createGroupsTable = '''CREATE TABLE groups(
             name TEXT NOT NULL,
             created_at TEXT NOT NULL,
             updated_at TEXT NOT NULL,
-            description TEXT
-            )
+            description TEXT)
             ''';
 
 const createLocationTable = '''CREATE TABLE location(

@@ -6,6 +6,8 @@
    <application
         android:label="Location Master"
         android:icon="@mipmap/launcher_icon">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyDdx3qsJ9sU0FOij3CS9bND9CcSkzIaYas"/>
 
 
         <activity

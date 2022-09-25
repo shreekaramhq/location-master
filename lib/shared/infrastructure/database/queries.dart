@@ -8,9 +8,12 @@ const selectlocationQuery = '''SELECT * from location''';
 
 const deletelocationQuery = '''DELETE FROM location where id=?''';
 
-const selectGroupsQuery = '''SELECT * from groups''';
+// const selectGroupsQuery = '''SELECT * from groups''';
+const selectGroupsQuery =
+    '''SELECT *, (select count(*) from location where group_id=g.id) as location_count from groups g ORDER BY updated_at DESC''';
 
-const selectGroupByIdQuery = '''SELECT * from group where id=?''';
+const selectGroupByIdQuery =
+    '''SELECT *, (select count(*) from location where group_id=g.id) as location_count from groups g where id=?''';
 
 const selectLocationQuery = '''SELECT * from location where group_id=?''';
 

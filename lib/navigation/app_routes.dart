@@ -13,7 +13,9 @@ class AppRoute {
 abstract class AppRoutes {
   AppRoutes._();
 
-  static final splashPage = AppRoute(name: "Splash", path: "splash");
+  static final homePage = AppRoute(name: "home", path: "/");
 
-  static final homePage = AppRoute(name: "Home", path: "/");
+  static final groupListPage = AppRoute(name: "groups", path: "groups");
+
+  static final groupPage = AppRoute(name: "group", path: "groups/:id");
 }
