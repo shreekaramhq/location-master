@@ -16,7 +16,9 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   void initState() {
-    ref.read(groupwatcherProvider.notifier).getGroups();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(groupwatcherProvider.notifier).getGroups();
+    });
     super.initState();
   }
 
