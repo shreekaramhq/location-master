@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:locationmaster/shared/widgets/draggable_bottom_sheet.dart';
 
@@ -63,7 +65,10 @@ class _GroupFormState extends State<GroupForm> {
               const SizedBox(height: 24),
               TextButton(
                 onPressed: onPressed,
-                child: Text(widget.buttonText),
+                child: Text(
+                  widget.buttonText,
+                  style: const TextStyle(fontWeight: FontWeight.w600),
+                ),
               ),
             ],
           ),

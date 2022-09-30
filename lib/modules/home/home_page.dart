@@ -54,7 +54,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           });
         },
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.inbox), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.train), label: "Trips"),
         ],
         currentIndex: selectedIndex,

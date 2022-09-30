@@ -60,6 +60,14 @@ class LocationListView extends ConsumerWidget {
             children: [
               SlidableAction(
                 onPressed: (ctx) {
+                  onAction(TileAction.update, _location);
+                },
+                icon: Icons.edit,
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+              ),
+              SlidableAction(
+                onPressed: (ctx) {
                   onAction(TileAction.delete, _location);
                 },
                 icon: Icons.delete,

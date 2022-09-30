@@ -155,7 +155,10 @@ class _LocationFormState extends State<LocationForm> {
                     alignment: Alignment.centerRight,
                     child: TextButton.icon(
                       onPressed: onPressed,
-                      label: Text(widget.buttonText),
+                      label: Text(
+                        widget.buttonText,
+                        style: const TextStyle(fontWeight: FontWeight.w600),
+                      ),
                       icon: const Icon(Icons.location_pin),
                     ),
                   ),

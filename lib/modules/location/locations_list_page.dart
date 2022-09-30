@@ -7,6 +7,8 @@ import 'package:locationmaster/modules/location/domain/location_model.dart';
 import 'package:locationmaster/modules/location/views/location_list.view.dart';
 import 'package:locationmaster/modules/location/views/update_location_view.dart';
 import 'package:locationmaster/providers.dart';
+import 'package:locationmaster/styles/app_colors.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'views/add_location_view.dart';
 
@@ -89,7 +91,7 @@ class _LocationListPageState extends ConsumerState<LocationListPage> {
     );
   }
 
-  _showModal(BuildContext context, {LocationModel? locationModel}) {
+  _showModal({LocationModel? locationModel}) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -121,15 +123,34 @@ class _LocationListPageState extends ConsumerState<LocationListPage> {
     );
   }
 
-  void _onAction(TileAction action, LocationModel _location) {
+  void _onAction(TileAction action, LocationModel _location) async {
     if (action == TileAction.select) {
-      // FIXME:
-      // show update modal
+      final mapurl = "google.navigation:q=${_location.latitude}, ${_location.longitude}";
 
-      _showModal(context, locationModel: _location);
+      if (await canLaunchUrl(Uri.parse(mapurl))) {
+        // Navigator.of(context).pop();
+
+        await launchUrl(Uri.parse(mapurl));
+      } else {
+        debugPrint("could not launch");
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Colors.redAccent,
+            content: Text(
+              "Could not open google maps",
+              style: TextStyle(fontSize: 16),
+            ),
+            duration: Duration(milliseconds: 500),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
     }
 
-    if (action == TileAction.update) {}
+    if (action == TileAction.update) {
+      _showModal(locationModel: _location);
+    }
 
     if (action == TileAction.delete) {
       showDialog(
@@ -213,7 +234,7 @@ class _LocationListPageState extends ConsumerState<LocationListPage> {
   void onPressed() async {
     await _handlePermission(
       okCallback: () {
-        _showModal(context);
+        _showModal();
       },
       deniedForeverCallback: () => _askPermissionDialog(
         cancelCallback: () {
