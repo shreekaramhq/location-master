@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:locationmaster/modules/group/domain/group_model.dart';
 
 import 'package:locationmaster/modules/pages.dart';
 
@@ -45,6 +46,16 @@ abstract class AppNavigator {
           pageBuilder: (BuildContext context, GoRouterState state) => NoTransitionPage<void>(
             key: state.pageKey,
             child: const HomePage(),
+          ),
+        ),
+        GoRoute(
+          name: AppRoutes.groupPage.name,
+          path: AppRoutes.groupPage.slashPath,
+          pageBuilder: (BuildContext context, GoRouterState state) => SlideTransitionPage(
+            key: state.pageKey,
+            child: LocationListPage(
+              group: (state.extra as GroupModel),
+            ),
           ),
         ),
       ],
