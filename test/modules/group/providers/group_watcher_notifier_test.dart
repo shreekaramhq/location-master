@@ -9,7 +9,7 @@ import 'package:locationmaster/shared/infrastructure/database/sql_database.dart'
 import 'package:mockito/mockito.dart';
 
 import '../../../shared/infrastructure/database/sqldatabase_test.mocks.dart';
-import '../infrastructure/group_repository_test.mocks.dart';
+import "../infrastructure/group_repository_test.mocks.dart";
 
 void main() {
   late SqlDatabase mockDatabase;

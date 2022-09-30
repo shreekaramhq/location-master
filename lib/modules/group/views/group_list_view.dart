@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:locationmaster/modules/group/domain/group_model.dart';
 import 'package:locationmaster/providers.dart';
+import 'package:locationmaster/styles/app_colors.dart';
 
 import '../widgets/slidable_tile.dart';
 
@@ -39,7 +40,12 @@ class GroupListView extends ConsumerWidget {
     });
 
     return ListView.separated(
-      separatorBuilder: (context, index) => const Divider(height: 1),
+      separatorBuilder: (context, index) => const Divider(
+        height: 1,
+        color: kcMediumGreyColor,
+        indent: 12,
+        endIndent: 12,
+      ),
       itemCount: groups.length,
       itemBuilder: (ctx, index) {
         final _group = groups[index];
@@ -47,7 +53,7 @@ class GroupListView extends ConsumerWidget {
         return SlidableTile(
           onAction: onAction,
           group: _group,
-          disabled: groups.length == 1,
+          disabled: groups.length == 1 || _group.id == 'ccd13ccf-9bb8-4469-9cd0-d80c0921a72c',
         );
       },
     );

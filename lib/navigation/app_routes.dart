@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+
+import '../modules/group/group_route_observer.dart';
+
 class AppRoute {
   final String name;
   final String path;
@@ -19,3 +23,7 @@ abstract class AppRoutes {
 
   static final groupPage = AppRoute(name: "group", path: "groups/:id");
 }
+
+final RouteObserver<ModalRoute> routeObserver = GroupRouteObserver();
+
+final navigatorKey = GlobalKey<NavigatorState>();

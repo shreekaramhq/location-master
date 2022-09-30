@@ -28,6 +28,10 @@ abstract class AppNavigator {
 
   static GoRouter createAppRouter() {
     return GoRouter(
+      navigatorKey: navigatorKey,
+      observers: [
+        routeObserver,
+      ],
       initialLocation: AppRoutes.homePage.path,
       errorBuilder: (ctx, state) => const Scaffold(
         body: Center(

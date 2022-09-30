@@ -17,26 +17,14 @@ class GpsService {
 
   Future<bool> get isServiceEnabled => _gpsRepository.isServiceEnabled;
 
-  Future<bool> checkPermissions() async {
-    if (await isServiceEnabled) {
-      return true;
-    }
+  Future<LocationPermission> checkPermissions() async {
+    return _gpsRepository.getPermissionStatus;
+  }
 
-    LocationPermission _permissionStatus = await _gpsRepository.getPermissionStatus;
+  Future<LocationPermission> requestPermission() async {
+    final status = await _gpsRepository.requestPermission();
 
-    if (_permissionStatus == LocationPermission.denied) {
-      _permissionStatus = await _gpsRepository.requestPermission();
-
-      if (_permissionStatus == LocationPermission.denied) {
-        throw LocationAcessDenied("Location Access is not provided");
-      }
-
-      if (_permissionStatus == LocationPermission.deniedForever) {
-        throw LocationAcessDeniedForever("Location Access denied forever");
-      }
-    }
-
-    return true;
+    return status;
   }
 
   Future<Position> getLocation() async {

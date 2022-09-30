@@ -14,7 +14,12 @@ const GROUPS_TABLE = "groups";
 
 Future onCreateDatabase(Transaction txn) async {
   return txn.insert(
-      GROUPS_TABLE, GroupModelDto.fromDomain(GroupModel.empty().copyWith(name: "Inbox")).toMap());
+      GROUPS_TABLE,
+      GroupModelDto.fromDomain(GroupModel.empty().copyWith(
+        id: "ccd13ccf-9bb8-4469-9cd0-d80c0921a72c",
+        name: "Inbox",
+        description: "Default group",
+      )).toMap());
 }
 
 class SqlDatabase {
@@ -36,19 +41,23 @@ class SqlDatabase {
   }
 
   initialiseDatabase(Future Function(Transaction txn) onCreate) async {
-    final db = await openDatabase(
-      _dbPath,
-      version: _version,
-      onCreate: (Database db, int version) async {
-        await db.transaction((txn) async {
-          await txn.execute(createGroupsTable);
-          await txn.execute(createLocationTable);
-          await onCreate(txn);
-        });
-      },
-    );
+    try {
+      final db = await openDatabase(
+        _dbPath,
+        version: _version,
+        onCreate: (Database db, int version) async {
+          await db.transaction((txn) async {
+            await txn.execute(createGroupsTable);
+            await txn.execute(createLocationTable);
+            await onCreate(txn);
+          });
+        },
+      );
 
-    // Any code awaiting the Completer's future will now start executing
-    _dbOpenCompleter.complete(db);
+      // Any code awaiting the Completer's future will now start executing
+      _dbOpenCompleter.complete(db);
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }

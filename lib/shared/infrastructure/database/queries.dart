@@ -15,7 +15,9 @@ const selectGroupsQuery =
 const selectGroupByIdQuery =
     '''SELECT *, (select count(*) from location where group_id=g.id) as location_count from groups g where id=?''';
 
-const selectLocationQuery = '''SELECT * from location where group_id=?''';
+const selectLocationByGroupQuery = '''SELECT * from location where group_id=?''';
+
+const selectLocationByIdQuery = '''SELECT * from location where id=?''';
 
 const selectAllLocationQuery = '''SELECT * from location''';
 

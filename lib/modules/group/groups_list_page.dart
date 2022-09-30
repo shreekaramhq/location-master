@@ -5,15 +5,50 @@ import 'package:go_router/go_router.dart';
 import 'package:locationmaster/modules/group/domain/group_model.dart';
 import 'package:locationmaster/navigation/app_routes.dart';
 import 'package:locationmaster/providers.dart';
+import 'package:locationmaster/styles/app_colors.dart';
 
 import 'views/views.dart';
 import 'widgets/slidable_tile.dart';
 
-class GroupsListPage extends ConsumerWidget {
+class GroupsListPage extends ConsumerStatefulWidget {
   const GroupsListPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<GroupsListPage> createState() => _GroupsListPageState();
+}
+
+class _GroupsListPageState extends ConsumerState<GroupsListPage> with RouteAware {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(groupwatcherProvider.notifier).getGroups();
+    });
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    routeObserver.subscribe(this, ModalRoute.of(context) as dynamic);
+
+    super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+
+    super.dispose();
+  }
+
+  @override
+  void didPopNext() {
+    ref.read(groupwatcherProvider.notifier).getGroups(silently: true);
+
+    super.didPopNext();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final state = ref.watch(groupwatcherProvider);
 
     _showModal(BuildContext context, {GroupModel? group}) {
@@ -42,7 +77,11 @@ class GroupsListPage extends ConsumerWidget {
 
     void _onAction(TileAction action, GroupModel _group) {
       if (action == TileAction.select) {
-        // TODO: navigate to group details/locations list page
+        GoRouter.of(context).pushNamed(
+          AppRoutes.groupPage.name,
+          extra: _group,
+          params: {"id": _group.id},
+        );
       }
 
       if (action == TileAction.update) {
@@ -50,7 +89,45 @@ class GroupsListPage extends ConsumerWidget {
       }
 
       if (action == TileAction.delete) {
-        ref.read(groupActorProvider.notifier).deleteGroup(_group.id);
+        showDialog(
+            context: context,
+            builder: (ctx) {
+              return AlertDialog(
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("CANCEL"),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      ref.read(groupActorProvider.notifier).deleteGroup(_group.id);
+
+                      Navigator.pop(context);
+                    },
+                    child: const Text(
+                      "CONFIRM",
+                      style: TextStyle(
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ],
+                title: const Text(
+                  "Are you sure?",
+                  textAlign: TextAlign.center,
+                ),
+                content: const Text(
+                  "This will delete all the locations in this group",
+                  style: TextStyle(
+                    color: kcMediumGreyColor,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+              );
+            });
       }
     }
 

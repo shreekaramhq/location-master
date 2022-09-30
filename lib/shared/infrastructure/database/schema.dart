@@ -9,8 +9,8 @@ const createGroupsTable = '''CREATE TABLE groups(
 const createLocationTable = '''CREATE TABLE location(
             id TEXT PRIMARY KEY,
             name TEXT NOT NULL,
-            latitude TEXT NOT NULL,
-            longitude TEXT NOT NULL,
+            latitude REAL NOT NULL,
+            longitude REAL NOT NULL,
             group_id TEXT NOT NULL,
             description TEXT,
             updated_at TEXT NOT NULL,
@@ -28,7 +28,7 @@ const createLocationPinsTable = '''CREATE TABLE location_pin(
             created_at TEXT NOT NULL,
             updated_at TEXT NOT NULL,
             FOREIGN KEY(location_id)
-              REFERENCES locations(id)
+              REFERENCES location(id)
                 ON DELETE CASCADE
                 ON UPDATE CASCADE
             )

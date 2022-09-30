@@ -48,22 +48,22 @@ class _GroupFormState extends State<GroupForm> {
     return DraggableBottomSheet(
       maxChildSize: 0.4,
       initialChildSize: 0.4,
+      minChildSize: 0.4,
       builder: (BuildContext context, ScrollController scrollController) {
         return SingleChildScrollView(
           physics: const ClampingScrollPhysics(),
           controller: scrollController,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               const SizedBox(height: 24),
               _name(),
               const SizedBox(height: 24),
               _description(),
               const SizedBox(height: 24),
-              TextButton.icon(
-                icon: const Icon(Icons.save),
-                label: Text(widget.buttonText),
+              TextButton(
                 onPressed: onPressed,
+                child: Text(widget.buttonText),
               ),
             ],
           ),

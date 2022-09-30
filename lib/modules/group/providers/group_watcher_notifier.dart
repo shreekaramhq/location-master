@@ -23,8 +23,10 @@ class GroupWatcherNotifier extends StateNotifier<GroupWatcherState> {
           final group = _group.value as GroupModel;
 
           state = state.maybeWhen(
-            groupsLoaded: (groups) => GroupWatcherState.groupsLoaded(
-                groups.map((g) => g.id == group.id ? group : g).toList()),
+            groupsLoaded: (groups) {
+              return GroupWatcherState.groupsLoaded(
+                  groups.map((g) => g.id == group.id ? group : g).toList());
+            },
             orElse: () => GroupWatcherState.groupsLoaded([_group.value]),
           );
         },
@@ -47,8 +49,10 @@ class GroupWatcherNotifier extends StateNotifier<GroupWatcherState> {
     });
   }
 
-  getGroups() async {
-    state = const GroupWatcherState.loading();
+  getGroups({bool? silently}) async {
+    if (silently == false) {
+      state = const GroupWatcherState.loading();
+    }
 
     final response = await _groupRepository.getAllGroups();
 
