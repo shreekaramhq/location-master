@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:locationmaster/shared/widgets/draggable_bottom_sheet.dart';
 
@@ -48,9 +46,9 @@ class _GroupFormState extends State<GroupForm> {
   @override
   Widget build(BuildContext context) {
     return DraggableBottomSheet(
-      maxChildSize: 0.4,
-      initialChildSize: 0.4,
-      minChildSize: 0.4,
+      initialChildSize: 0.5,
+      minChildSize: 0.5,
+      maxChildSize: 0.7,
       builder: (BuildContext context, ScrollController scrollController) {
         return SingleChildScrollView(
           physics: const ClampingScrollPhysics(),

@@ -38,7 +38,7 @@ class LocationListView extends ConsumerWidget {
             showMessage(context, message, color: Colors.green);
           },
           locationDeleteSuccess: (message) {
-            showMessage(context, message, color: Colors.redAccent);
+            showMessage(context, message, color: Colors.green);
           },
         );
       },

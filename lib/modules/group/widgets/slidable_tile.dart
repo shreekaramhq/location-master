@@ -42,20 +42,6 @@ class _SlidableTileState extends State<SlidableTile> with SingleTickerProviderSt
         groupTag: widget._group.id,
         closeOnScroll: true,
         enabled: !widget.disabled,
-        startActionPane: ActionPane(
-          motion: const ScrollMotion(),
-          children: [
-            SlidableAction(
-              onPressed: (ctx) {
-                widget.onAction(TileAction.update, widget._group);
-              },
-              icon: Icons.edit,
-              backgroundColor: Colors.blue,
-              foregroundColor: Colors.white,
-              autoClose: true,
-            ),
-          ],
-        ),
         endActionPane: ActionPane(
           motion: const ScrollMotion(),
           children: [

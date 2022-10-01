@@ -39,6 +39,7 @@ class _DraggableBottomSheetState extends State<DraggableBottomSheet>
       minChildSize: widget.minChildSize,
       initialChildSize: widget.initialChildSize,
       maxChildSize: widget.maxChildSize,
+      snapSizes: [widget.minChildSize, widget.maxChildSize],
       snap: true,
       expand: true,
       builder: _builder,

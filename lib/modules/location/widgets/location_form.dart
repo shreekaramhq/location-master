@@ -59,7 +59,7 @@ class _LocationFormState extends State<LocationForm> {
     return DraggableBottomSheet(
         initialChildSize: 0.5,
         minChildSize: 0.5,
-        maxChildSize: 0.5,
+        maxChildSize: 0.7,
         builder: (context, scrollController) {
           return SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
@@ -70,7 +70,7 @@ class _LocationFormState extends State<LocationForm> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextFormField(
-                    autofocus: true,
+                    autofocus: widget.name == null,
                     controller: nameController,
                     // initialValue: _location?.latitude.toString() ?? "",
                     decoration: const InputDecoration(

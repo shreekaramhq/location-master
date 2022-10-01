@@ -7,7 +7,6 @@ import 'package:locationmaster/modules/location/domain/location_model.dart';
 import 'package:locationmaster/modules/location/views/location_list.view.dart';
 import 'package:locationmaster/modules/location/views/update_location_view.dart';
 import 'package:locationmaster/providers.dart';
-import 'package:locationmaster/styles/app_colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'views/add_location_view.dart';
@@ -104,7 +103,7 @@ class _LocationListPageState extends ConsumerState<LocationListPage> {
       builder: (ctx) => GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
-          Navigator.of(context).pop();
+          // Navigator.of(context).pop();
         },
         child: AnimatedPadding(
           duration: const Duration(milliseconds: 150),
@@ -125,7 +124,12 @@ class _LocationListPageState extends ConsumerState<LocationListPage> {
 
   void _onAction(TileAction action, LocationModel _location) async {
     if (action == TileAction.select) {
-      final mapurl = "google.navigation:q=${_location.latitude}, ${_location.longitude}";
+      // final mapurl = "google.navigation:q=${_location.latitude}, ${_location.longitude}";
+
+      // final mapurl =
+      //     "https://www.google.com/maps/search/?api=1&query=${_location.latitude},${_location.longitude}";
+
+      final mapurl = "geo:0,0?q=${_location.latitude},${_location.longitude}";
 
       if (await canLaunchUrl(Uri.parse(mapurl))) {
         // Navigator.of(context).pop();
@@ -180,7 +184,7 @@ class _LocationListPageState extends ConsumerState<LocationListPage> {
               ],
               title: const Text(
                 "Are you sure?",
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.left,
               ),
               contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
             );

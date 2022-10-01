@@ -56,14 +56,15 @@ class _GroupsListPageState extends ConsumerState<GroupsListPage> with RouteAware
         context: context,
         isScrollControlled: true,
         enableDrag: true,
-        isDismissible: true,
+        isDismissible: false,
         useRootNavigator: true,
         backgroundColor: Colors.transparent,
         barrierColor: Colors.grey.withOpacity(0.1),
+        constraints: BoxConstraints.loose(MediaQuery.of(context).size),
         builder: (ctx) => GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: () {
-            Navigator.of(context).pop();
+            // Navigator.of(context).pop();
           },
           child: AnimatedPadding(
             duration: const Duration(milliseconds: 150),
@@ -116,14 +117,14 @@ class _GroupsListPageState extends ConsumerState<GroupsListPage> with RouteAware
                 ],
                 title: const Text(
                   "Are you sure?",
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.left,
                 ),
                 content: const Text(
                   "This will delete all the locations in this group",
                   style: TextStyle(
                     color: kcMediumGreyColor,
                   ),
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.left,
                 ),
                 contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
               );

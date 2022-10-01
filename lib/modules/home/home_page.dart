@@ -26,23 +26,33 @@ class _HomePageState extends ConsumerState<HomePage> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(
-                child: SizedBox(
-                  width: 250,
-                  child: SvgPicture.asset(
-                    'assets/trip.svg',
-                    semanticsLabel: 'Acme Logo',
-                    fit: BoxFit.scaleDown,
+              Expanded(
+                flex: 2,
+                child: Center(
+                  child: SizedBox(
+                    width: 250,
+                    child: SvgPicture.asset(
+                      'assets/trip.svg',
+                      semanticsLabel: 'Acme Logo',
+                      fit: BoxFit.scaleDown,
+                    ),
                   ),
                 ),
               ),
-              const Text(
-                "Plan your trips",
-                style: TextStyle(
-                  fontSize: 20,
+              Expanded(
+                flex: 1,
+                child: Column(
+                  children: const [
+                    Text(
+                      "Plan your trips",
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text("coming soon"),
+                  ],
                 ),
               ),
-              const Text("coming soon"),
             ],
           )
         ],
